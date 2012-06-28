@@ -291,6 +291,22 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
             }
         }
     }
+    
+    public static class ClickAction extends AbstractAction {
+        private View.OnClickListener mListener;
+
+        public ClickAction(View.OnClickListener listener, int drawable) {
+            super(drawable);
+            mListener = listener;
+        }
+
+        @Override
+        public void performAction(View view) {
+            if (mListener != null) {
+                mListener.onClick(view);
+            }
+        }
+    }
 
     /*
     public static abstract class SearchAction extends AbstractAction {
