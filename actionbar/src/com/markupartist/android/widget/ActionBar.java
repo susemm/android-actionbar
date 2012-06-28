@@ -307,6 +307,38 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
             }
         }
     }
+    
+    public static class ToggleAction extends AbstractAction {
+        private OnToggleListener mListener;
+        private int mDrawableOn;
+        private int mDrawableOff;
+        private boolean mIsOn;
+
+        public ToggleAction(OnToggleListener listener, int drawableOn, int drawableOff, boolean isOn) {
+            int drawable = isOn ? drawableOn : drawableOff;
+            super(drawable);
+            mListener = listener;
+            mDrawableOn = drawableOn;
+            mDrawableOff = drawableOff;
+            mIsOn = isOn
+        }
+
+        @Override
+        public void performAction(View view) {
+            mIsOn = !mIsOn;
+            int drawable = isOn ? mDrawableOn : mDrawableOff;
+            ImageButton labelView = (ImageButton) view.findViewById(R.id.actionbar_item);
+            labelView.setImageResource(drawable);
+            
+            if (mListener != null) {
+                mListener.onToggle(view, mIsOn);
+            }
+        }
+        
+        public interface OnToggleListener {
+            public onToggle(View view, boolean isOn);
+        } 
+    }
 
     /*
     public static abstract class SearchAction extends AbstractAction {
