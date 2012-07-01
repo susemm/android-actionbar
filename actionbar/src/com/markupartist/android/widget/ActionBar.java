@@ -315,18 +315,17 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
         private boolean mIsOn;
 
         public ToggleAction(OnToggleListener listener, int drawableOn, int drawableOff, boolean isOn) {
-            int drawable = isOn ? drawableOn : drawableOff;
-            super(drawable);
+            super(isOn ? drawableOn : drawableOff);
             mListener = listener;
             mDrawableOn = drawableOn;
             mDrawableOff = drawableOff;
-            mIsOn = isOn
+            mIsOn = isOn;
         }
 
         @Override
         public void performAction(View view) {
             mIsOn = !mIsOn;
-            int drawable = isOn ? mDrawableOn : mDrawableOff;
+            int drawable = mIsOn ? mDrawableOn : mDrawableOff;
             ImageButton labelView = (ImageButton) view.findViewById(R.id.actionbar_item);
             labelView.setImageResource(drawable);
             
@@ -336,7 +335,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
         }
         
         public interface OnToggleListener {
-            public onToggle(View view, boolean isOn);
+            public void onToggle(View view, boolean isOn);
         } 
     }
 
